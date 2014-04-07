@@ -1,17 +1,22 @@
 extends layout
 
 block content
-    h1.col-md-12.text-center= title
-        form#formAddUser.text-center.col-md-12(name="adduser",method="post",action="/adduser")    
-            table.col-md-6.col-md-offset-1(style="table-layout:fixed;width:1000px")
-                thead
-                    tr
-                        td.table.col-md-3.text-left(style="width:100px"). Username:
-                        td.table.col-md-3.text-center(style="width:750px") 
-                            input#inputUserName.form-control.text-center(type="text", placeholder="username", name="username")
-                    tr
-                        td.table.col-md-3.text-left(style="width:100px"). User Email:
-                        td.table.col-md-3.text-center(style="width:750px")
-                            input#inputUserEmail.form-control.text-center(type="text", placeholder="useremail", name="useremail")
-            center
-                button#btnSubmit.btn.btn-primary.btn-lg.btn-block.center(style="width:75%;")(type="submit") Submit!
+    div(id ='wrapper')
+        div(id='cell')
+            div(class='content')
+                h1.col-md-12.text-center= title
+                    form#formAddUser.text-center.col-md-12(name="adduser",method="post",action="/adduser")    
+                        table.col-md-6.col-md-offset-1(style="table-layout:fixed;width:1000px")
+                            thead
+                                tr
+                                    td.table.col-md-3.text-left(style="width:100px"). Username:
+                                    td.table.col-md-3.text-center(style="width:750px") 
+                                        input#inputUserName.form-control.text-center(type="text", placeholder="username", name="username")
+                                tr
+                                    td.table.col-md-3.text-left(style="width:100px"). User Email:
+                                    td.table.col-md-3.text-center(style="width:750px")
+                                        input#inputUserEmail.form-control.text-center(type="text", placeholder="useremail", name="useremail")
+                                tr   
+                                    td
+                                    td.table.col-md-3.text-center(style="width:750px")
+                                        button#btnSubmit.btn.btn-primary(style="width:100%;")(type="submit") Submit!

@@ -13,8 +13,16 @@ block content
                             input#inputUserName.form-control.text-center(type="text", value=user.username, name="username")
                             input#hiddenoid(type="hidden", name="hiddenoid", value= user._id.toHexString())
                     tr
+                        td.table.col-md-3.text-center(colspan=2)
+                            br
+                    tr
                         td.table.col-md-3.text-left(style="width:100px"). User Email:
                         td.table.col-md-3.text-center(style="width:700px")
                             input#inputEmail.form-control.text-center(type="text", value=user.email, name="email")
-        center
-            button#btnSubmit.btn.btn-primary.btn-lg.btn-block.center(style="width:75%;")(type="submit") Submit!
+                    tr
+                        td.table.col-md-3.text-center(colspan=2)
+                            br
+                    tr   
+                        td
+                        td.table.col-md-3.text-center(style="width:750px")
+                            button#btnSubmit.btn.btn-primary(style="width:100%;")(type="submit") Submit!

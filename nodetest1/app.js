@@ -12,7 +12,7 @@ var path = require('path');
 // New Code
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('localhost:27017/nodetest1');
+var db = monk('mongodb://root:rootpw@novus.modulusmongo.net:27017/ameh4Yqy');
 
 var app = express();
 

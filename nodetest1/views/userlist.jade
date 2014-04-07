@@ -1,36 +1,86 @@
 extends layout
 
 block content
-    h1.text-center.col-md-6.col-md-offset-3.
-        User List
-    center    
-        table.col-md-8.col-md-offset-2.table-striped
-            thead
-                tr
-                    th.text-center Index
-                    th.text-center ID
-                    th.text-center Username
-                    th.text-center Email
-            tbody.table
-                each user, i in userlist
-                    tr
-                        td.table.table-bordered.col-md-1.table-bordered.
-                            #{i+1}
-                        td.table.table-bordered.col-md-1.
-                            #{user._id}
-                        td.table.table-bordered.col-md-2.
-                            #{user.username}
-                        td.table.table-bordered.col-md-2.
-                            #{user.email}
-                        td.col-md-3(style='padding:10px 10px 10px 10px;')
-                            form#delUser(name="deluser",method="post",action="/deluser")
-                                input#inputOid(type="hidden", name="boid", value= user._id.toHexString())
-                                button#btnSubmit.btn.btn-danger.btn-xl(type="submit") Delete Field
-                        td.col-md-3
-                            form#updateuser(name="updateuser",method="post",action="/updateuser")
-                                input#inputOid(type="hidden", name="uoid", value= user._id.toHexString())
-                                button#btnSubmit.btn.btn-success.btn-xl(type="submit") Update User
-        br
-        h1
-        br
-        a.col-md-8.col-md-offset-2.text-center.btn.btn-primary.btn-lg(href="http://localhost:3000/newuser") Add A New User
+	style.
+		body
+			{
+				background-color: lightblue;
+			}
+	script.
+		function unlock(str){
+			for(i = 0;i<document.getElementsByName("uoid").length;i++){
+				if(document.getElementsByName("uoid")[i].value == str && document.getElementsByName("username")[i].type=="hidden"){
+					document.getElementsByName("username")[i].type="text";
+					document.getElementsByName("email")[i].type="text";
+					document.getElementById("usernameSpan"+str).innerHTML="";
+					document.getElementById("emailSpan"+str).innerHTML="";
+					return false;
+				}
+			}
+			return true;
+		}
+		function showUserList(){
+			document.getElementById("userList").className="";
+			document.getElementById("newUser").className="hidden";
+			document.getElementById("userListTab").disabled="true";
+			document.getElementById("newUserTab").disabled="";
+			return false;
+		}
+		function showNewUser(){
+			document.getElementById("userList").className ="hidden";
+			document.getElementById("newUser").className="";
+			document.getElementById("userListTab").disabled="";
+			document.getElementById("newUserTab").disabled="true";
+			return false;
+		}
+	div(id='mainContent')
+		div(id='buttonTabs')
+			button.btn.btn-default.btn-xl(type='button', id='userListTab' , value='userList', onclick='return showUserList();',disabled) User List
+			button.btn.btn-default.btn-xl(type='button', id='newUserTab' , value='newUser', onclick='return showNewUser();' ) New User
+		div(id='userList', class='',style="margin-left:auto; margin-right:auto;")
+				h1.text-center.col-md-6.col-md-offset-3.
+						User List
+				center    
+						table.col-md-12.table-striped
+								thead
+										tr
+												th.text-center Username
+												th.text-center Email
+								tbody.table
+										each user, i in userlist
+												tr
+														form#updateuser(name="updateuser",method="post",action="/updateuser")
+																td.table.table-bordered.col-md-3
+																		span(id="usernameSpan"+user._id)
+																				| #{user.username}
+																		input#inputName(type="hidden", name="username", value= user.username)
+																td.table.table-bordered.col-md-3
+																		span(id="emailSpan"+user._id)
+																				| #{user.email}
+																		input#inputEmail(type="hidden", name="email", value= user.email)
+																td.col-md-3(style='padding:10px 10px 10px 10px;')
+																		button#btnSubmit.btn.btn-danger.btn-xl(type='submit', name='submit', value='Delete Field') Delete Field
+																td.col-md-3
+																		input#inputOid(type="hidden", name="uoid", value= user._id.toHexString())
+																		button#btnSubmit.btn.btn-success.btn-xl(type="submit", name="submit" value='Update User', onclick='return unlock(uoid.value);') Update User
+						br
+						h1
+						br
+		div(id='newUser', class ='hidden')
+			h1.text-center.col-md-6.col-md-offset-3.
+				New User
+			form#formAddUser.text-center.col-md-12(name="adduser",method="post",action="/adduser")    
+				table(style="table-layout:fixed;width:875px;margin-left:auto; margin-right:auto;")
+				thead
+					tr
+					td.table.col-md-3.text-left(style="width:0px")
+					td.table.col-md-3.text-center(style="width:700px") 
+						input#inputUserName.form-control.text-center(type="text", placeholder="username", name="username")
+					tr
+					td.table.col-md-3.text-left(style="width:0px")
+					td.table.col-md-3.text-center(style="width:700px")
+						input#inputUserEmail.form-control.text-center(type="text", placeholder="useremail", name="useremail")
+					tr   
+					td
+					td.table.col-md-3.text-center(style="width:700px")
+						button#btnSubmit.btn.btn-primary(style="width:100%;")(type="submit") Submit!
